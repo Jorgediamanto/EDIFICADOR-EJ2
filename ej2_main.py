@@ -8,15 +8,16 @@ def main():
     # Asegúrate de que pedido_builder está definido antes de usarlo
     pedido_builder = PedidoPizzaCSVBuilder()
 
-    for i in range(3):  # Iteramos tres veces para crear tres pizzas
-        # Crea la pizza utilizando la fábrica abstracta
+    for i in range(3):  # Iteramos tres veces para crear tres edificios
+        # Crea el edificio utilizando la fábrica abstracta
         factory = PizzaFactory()
         director = PizzaDirector(factory)
         director.crear_pizza()
-        pizza_info = director.builder.get_pizza_info()
 
-        # Añade la pizza al pedido (ajusta según tus necesidades)
-        pedido_builder.añadir_pedido("cliente1", pizza_info)
+        # Añade el edificio al pedido (ajusta según tus necesidades)
+        pizza_info = director.builder.get_pizza_info()
+        if pizza_info:  # Verifica si la creación fue exitosa
+            pedido_builder.añadir_pedido("cliente1", pizza_info)
 
     try:
         tipo_seleccion = obtener_seleccion({"Residenciales": "Residenciales", "Comerciales": "Comerciales", "Industriales": "Industriales"})

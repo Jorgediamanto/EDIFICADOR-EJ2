@@ -14,6 +14,16 @@ class PizzaAbstractFactory(ABC):
     def create_estilo(self) -> str:
         pass
 
+class RegulacionesEdificio:
+    @staticmethod
+    def verificar_altura(altura):
+        return altura <= 100
+
+    @staticmethod
+    def verificar_eficiencia_energetica(eficiencia):
+        return eficiencia > 0.5
+
+
 class PizzaFactory(PizzaAbstractFactory):
     def create_tipo(self) -> str:
         while True:
@@ -50,7 +60,20 @@ class PizzaFactory(PizzaAbstractFactory):
     def get_pizza_info(self) -> List[str]:
         tipo = self.create_tipo()
         estilo = self.create_estilo()
-        return [tipo, estilo]
+
+        # Agregar verificaciones de altura y eficiencia energética
+        altura = float(input("Ingresa la altura del edificio en metros: "))
+        eficiencia_energetica = float(input("Ingresa la eficiencia energética (entre 0 y 1): "))
+
+        regulaciones = RegulacionesEdificio()
+        if regulaciones.verificar_altura(altura) and regulaciones.verificar_eficiencia_energetica(eficiencia_energetica):
+            print("Edificio cumple con las regulaciones.")
+        else:
+            print("Edificio no cumple con las regulaciones. Cancelando creación.")
+            return None
+
+        return [tipo, estilo, str(altura), str(eficiencia_energetica)]
+
 
 
 
